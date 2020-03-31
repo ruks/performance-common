@@ -24,6 +24,7 @@ service_name=netty-http-echo-service
 default_heap_size="4g"
 heap_size="$default_heap_size"
 wait_listen=false
+performance_common_version=0.4.6-SNAPSHOT
 
 function usage() {
     echo ""
@@ -78,8 +79,8 @@ fi
 mkdir -p logs
 
 echo "Starting Netty"
-nohup java -Xms${heap_size} -Xmx${heap_size} -XX:+PrintGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:$gc_log_file \
-    -jar $service_name-${performance.common.version}.jar $netty_service_flags >netty.out 2>&1 &
+nohup java -Xms${heap_size} -Xmx${heap_size} -XX:+PrintGC -XX:+PrintGCDetails -Xloggc:$gc_log_file \
+    -jar $service_name-${performance_common_version}.jar $netty_service_flags >netty.out 2>&1 &
 
 if [ "$wait_listen" = true ]; then
     # Find the port:
